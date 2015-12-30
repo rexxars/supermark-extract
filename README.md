@@ -1,5 +1,7 @@
 # supermark-extract
 
+[![Version npm](http://img.shields.io/npm/v/supermark-extract.svg?style=flat-square)](http://browsenpm.org/package/supermark-extract)[![Build Status](http://img.shields.io/travis/rexxars/supermark-extract/master.svg?style=flat-square)](https://travis-ci.org/rexxars/supermark-extract)[![Dependencies](https://img.shields.io/david/rexxars/supermark-extract.svg?style=flat-square)](https://david-dm.org/rexxars/supermark-extract)[![Coverage Status](http://img.shields.io/coveralls/rexxars/supermark-extract/master.svg?style=flat-square)](https://coveralls.io/r/rexxars/supermark-extract?branch=master)
+
 Extract supermark properties from a markdown file
 
 ## Installing
