@@ -3,3 +3,10 @@ node_js:
   - '5'
   - '4.2'
   - '0.12'
+script:
+- npm run ci
+after_script:
+- npm install coveralls && cat coverage/lcov.info | coveralls
+env:
+  global:
+    - secure: NCifhBC97aNTt9m9SWrVG52kK/uUOitYovnMartFiIAvalhMfiycRLDmr4XIjz0xa5qEFuUDE4E1aQjGM3qNMlYgF1Mu/W9mp+NSHbhbVMSnaUsxI2nA9an8LbnlJj1ZVpvjdJiDVy/lRUHwrW6hJfwJpEuSF2g0jxYEhezuhSq4ofghO9q6Rd38rtDyynfMamF2kMrZ0VB8TXWdXiviBGhhiaQXpXTVKCTL1C7Adxx7y04Ts8H+99/tK+qeaWbQ2J+w/JIwEOdZZl++jzM4F4pyMUzXIDS7yP5h9rfjwyUt/LU5Zl4brsyfQzJJRTvySN35UDom862wimqtHiyZtEO6YobkQuRGYEAd0W0E88/SaXEoA04RnDJdWcLHt7r4Z7IiG8lmcYlEWBsglwCBddBm49T8IPvCfbrhGCnmqIBL1QZ1qljc98PLp+LgzKVwSRmc2UKMFDrPTAkllSFndKzycF1voYGwfI7ULM8z0gdn37eFPfbbBP/kqIni7hxDKqwecpdq4p32yKu6a6Gb0tDm/NxEQ1i6QJRUWOTu/3B6HrDE2e6rXIh91MAoeUAMJmBfnZzZhfXnzoNQGxl590vzbZoV0KKKEvRcBxlzeSDaybNwVt0aJobTEDpzcNAWb/pgVKlWRRl4kvBdXI9pmwFOAcaNzvj5qUKWTfxYbgQ=

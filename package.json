@@ -4,9 +4,11 @@
   "description": "Extract supermark properties from a markdown file",
   "main": "src/extract.js",
   "scripts": {
+    "ci": "npm run lint && npm run coverage",
     "coverage": "istanbul cover -- tape test/*.test.js",
     "test": "tape test/*.test.js",
-    "posttest": "eslint ."
+    "posttest": "npm run lint",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
