@@ -1,5 +1,7 @@
 'use strict';
 
+var assign = require('object-assign');
+
 // Allowed property names
 var validProps = [
     'Title',
@@ -112,7 +114,7 @@ function extract(source) {
         result.errors.push(new Error('No valid supermark properties found in header'));
     }
 
-    return Object.assign({}, result.props, {
+    return assign({}, result.props, {
         document: source.replace(matchers.header, ''),
         errors: result.errors
     });
