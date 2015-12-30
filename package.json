@@ -2,7 +2,7 @@
   "name": "supermark-extract",
   "version": "1.0.0",
   "description": "Extract supermark properties from a markdown file",
-  "main": "extract.js",
+  "main": "src/extract.js",
   "scripts": {
     "coverage": "istanbul cover -- tape test/*.test.js",
     "test": "tape test/*.test.js",
