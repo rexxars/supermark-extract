@@ -1,6 +1,6 @@
 {
   "name": "supermark-extract",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Extract supermark properties from a markdown file",
   "main": "src/extract.js",
   "scripts": {
