@@ -27,7 +27,7 @@ Results in something along the lines of:
     "title": "Some document title",
     "excerpt": "An excerpt of the document can be used in lists, RSS-feeds etc",
     "slug": "some-document-title",
-    "date": "2015-12-30T00:11:19.411Z"
+    "date": "2015-12-30T00:11:19.411Z",
     "status": "Draft",
     "visibility": "Private",
     "tags": ["List Of", "Random", "Tags"],
