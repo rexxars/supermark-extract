@@ -62,7 +62,10 @@ test('unknown props', function(t) {
 
 test('no header', function(t) {
     t.ok(extract(fixtures.noHeader).errors.some(function(err) {
-        return err.message.indexOf('Could not find a valid supermark header') > -1;
+        return (
+            err instanceof TypeError &&
+            err.message === 'Could not find a valid supermark header'
+        );
     }), 'errors should contain `no valid supermark header`-error');
 
     t.end();
@@ -91,6 +94,17 @@ test('starred horizontal rules', function(t) {
         errors: [],
         document: '# Bip-bop.\n\nBoop.\n'
     });
+    t.end();
+});
+
+test('no title', function(t) {
+    t.ok(extract(fixtures.noTitle).errors.some(function(err) {
+        return (
+            err instanceof TypeError &&
+            err.message === 'Required property `Title` not found in header'
+        );
+    }), 'errors should contain `missing title`-error');
+
     t.end();
 });
 

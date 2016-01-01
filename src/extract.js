@@ -99,7 +99,7 @@ function extract(source) {
     if (!header) {
         return {
             props: {},
-            errors: [new Error('Could not find a valid supermark header')]
+            errors: [new TypeError('Could not find a valid supermark header')]
         };
     }
 
@@ -111,7 +111,9 @@ function extract(source) {
     });
 
     if (!Object.keys(result.props).length) {
-        result.errors.push(new Error('No valid supermark properties found in header'));
+        result.errors.push(new TypeError('No valid supermark properties found in header'));
+    } else if (!result.props.title) {
+        result.errors.push(new TypeError('Required property `Title` not found in header'));
     }
 
     return assign({}, result.props, {
