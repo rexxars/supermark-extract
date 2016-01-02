@@ -1,6 +1,7 @@
 'use strict';
 
 var assign = require('object-assign');
+var validate = require('./validate');
 
 // Allowed property names
 var validProps = [
@@ -57,13 +58,20 @@ function reduceLine(target, line) {
     }
 
     // All properties need values, unless they are lists
-    if (!value && listProps.indexOf(prop) === -1) {
+    var isListProp = listProps.indexOf(prop) !== -1;
+    if (!value && !isListProp) {
         return addError(new Error(
             'Property `' + prop + '` did not have a value and is not a list'
         ), target);
     }
 
-    // Set erthe value to our result
+    // If this is supposed to be a list, and a string is given, treat as CSV
+    if (isListProp && value) {
+        return addError(new Error(
+            'Property `' + prop + '` should be a list, string given'
+        ), target);
+    }
+
     if (value) {
         target.props[prop.toLowerCase()] = value;
     }
@@ -104,22 +112,23 @@ function extract(source) {
     }
 
     // Appears to be a correct header, try to parse individual properties
-    var result = header.split('\n').filter(Boolean).reduce(reduceLine, {
+    return header.split('\n').filter(Boolean).reduce(reduceLine, {
         props: {},
         errors: [],
         lastItem: null
     });
+}
 
-    if (!Object.keys(result.props).length) {
-        result.errors.push(new TypeError('No valid supermark properties found in header'));
-    } else if (!result.props.title) {
-        result.errors.push(new TypeError('Required property `Title` not found in header'));
-    }
+function processMarkdown(source) {
+    var doc = extract(source);
+    var errors = validate(doc);
 
-    return assign({}, result.props, {
+    doc.errors = doc.errors.concat(errors);
+
+    return assign({}, doc.props, {
         document: source.replace(matchers.header, ''),
-        errors: result.errors
+        errors: doc.errors
     });
 }
 
-module.exports = extract;
+module.exports = processMarkdown;

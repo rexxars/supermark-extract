@@ -108,6 +108,144 @@ test('no title', function(t) {
     t.end();
 });
 
+test('csv style tags/categories', function(t) {
+    t.ok(extract(fixtures.listAsCsv).errors.some(function(err) {
+        return err.message === 'Property `Tags` should be a list, string given';
+    }), 'errors should contain `list expected`-error');
+
+    t.ok(extract(fixtures.listAsCsv).errors.some(function(err) {
+        return err.message === 'Property `Categories` should be a list, string given';
+    }), 'errors should contain `list expected`-error');
+
+    t.end();
+});
+
+test('invalid slug', function(t) {
+    t.ok(extract('Title: foo\nSlug: Not the best way to slug\n---\nZing').errors.some(function(err) {
+        return err.message.indexOf('Slug') !== -1 && err.message.indexOf('regular expression') !== -1;
+    }), 'errors should contain `invalid slug`-error');
+
+    t.end();
+});
+
+test('valid slug', function(t) {
+    t.notOk(
+        extract('Title: foo\nSlug: a-valid-slug-is-a-nice-slug\n---\nZing').errors.length,
+        'errors should be empty on valid slug'
+    );
+
+    t.end();
+});
+
+test('invalid date', function(t) {
+    t.ok(extract('Title: foo\nDate: Can\'t just put anything\n---\nZing').errors.some(function(err) {
+        return err.message.indexOf('Date.parse') !== -1 && err.message.indexOf('8601') !== -1;
+    }), 'errors should contain `invalid date`-error');
+
+    t.end();
+});
+
+test('valid date', function(t) {
+    t.notOk(
+        extract('Title: foo\nDate: 2015-03-12\n---\nZing').errors.length,
+        'errors should be empty on valid date'
+    );
+
+    t.end();
+});
+
+test('invalid status', function(t) {
+    t.ok(extract('Title: foo\nStatus: foo\n---\nZing').errors.some(function(err) {
+        return (
+            err.message.indexOf('Status') !== -1 &&
+            err.message.indexOf('Published') !== -1 &&
+            err.message.indexOf('Draft') !== -1
+        );
+    }), 'errors should contain `invalid status`-error');
+
+    t.end();
+});
+
+test('valid status', function(t) {
+    t.notOk(
+        extract('Title: foo\nStatus: Draft\n---\nZing').errors.length,
+        'errors should be empty on valid status'
+    );
+
+    t.end();
+});
+
+test('invalid visibility', function(t) {
+    t.ok(extract('Title: foo\nVisibility: foo\n---\nZing').errors.some(function(err) {
+        return (
+            err.message.indexOf('Visibility') !== -1 &&
+            err.message.indexOf('Public') !== -1 &&
+            err.message.indexOf('Private') !== -1
+        );
+    }), 'errors should contain `invalid visibility`-error');
+
+    t.end();
+});
+
+test('valid visibility', function(t) {
+    t.notOk(
+        extract('Title: foo\nVisibility: Private\n---\nZing').errors.length,
+        'errors should be empty on valid visibility'
+    );
+
+    t.end();
+});
+
+test('duplicate tags', function(t) {
+    t.ok(extract('Title: foo\nTags:\n* Foo\n* Bar\n* Foo\n---\nZing').errors.some(function(err) {
+        return err.message.indexOf('Tags') !== -1 && err.message.indexOf('unique') !== -1;
+    }), 'errors should contain `duplicate tags`-error');
+
+    t.end();
+});
+
+test('invalid tags', function(t) {
+    t.ok(extract('Title: foo\nTags:\n* Foo\n*\n* Foo\n---\nZing').errors.some(function(err) {
+        return err.message.indexOf('Tags') !== -1 && err.message.indexOf('valid string') !== -1;
+    }), 'errors should contain `invalid tag`-error');
+
+    t.end();
+});
+
+test('valid tags', function(t) {
+    t.notOk(
+        extract('Title: foo\nTags:\n* Foo\n* Bar\n---\nZing').errors.length,
+        'errors should be empty on valid tags'
+    );
+
+    t.end();
+});
+
+test('duplicate categories', function(t) {
+    t.ok(extract('Title: foo\nCategories:\n* Foo\n* Bar\n* Foo\n---\nZing').errors.some(function(err) {
+        return err.message.indexOf('Categories') !== -1 && err.message.indexOf('unique') !== -1;
+    }), 'errors should contain `duplicate categories`-error');
+
+    t.end();
+});
+
+test('invalid categories', function(t) {
+    t.ok(extract('Title: foo\nCategories:\n* Foo\n*\n* Foo\n---\nZing').errors.some(function(err) {
+        return err.message.indexOf('Categories') !== -1 && err.message.indexOf('valid string') !== -1;
+    }), 'errors should contain `invalid category`-error');
+
+    t.end();
+});
+
+test('valid categories', function(t) {
+    t.notOk(
+        extract('Title: foo\nCategories:\n* Foo\n* Bar\n---\nZing').errors.length,
+        'errors should be empty on valid categories'
+    );
+
+    t.end();
+});
+
 function isSame(t, actual, expected) {
     t.equal(
         Object.keys(actual).length,
