@@ -21,6 +21,7 @@ test('basic document', function(t) {
     isSame(t, extract(fixtures.basic), {
         title: 'Why Espen shouldn\'t be allowed to stay up late',
         date: '2015-12-30T00:11:19.411Z',
+        author: 'Espen Hovlandsdal',
         tags: ['List', 'Ramblings'],
         errors: [],
         document: fixtures.basic.replace(/[\s\S]+-{3,}\s+/, '')
