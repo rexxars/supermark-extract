@@ -11,6 +11,7 @@ var validProps = [
     'Date',
     'Status',
     'Visibility',
+    'Author',
     'Tags',
     'Categories'
 ];

@@ -34,6 +34,7 @@ Results in something along the lines of:
     "visibility": "Private",
     "tags": ["List Of", "Random", "Tags"],
     "categories": ["Testing", "Blogging"],
+    "author": "Espen Hovlandsdal <espen@hovlandsdal.com>",
     "errors": [],
     "document": "Raw markdown source of the document, without the supermark header."
 }

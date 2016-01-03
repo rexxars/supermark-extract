@@ -2,6 +2,7 @@ Title: Full document: The real test.
 Excerpt: It ain't easy coming up with sample text.
 Slug: full-document-the-real-test
 Date: 2015-12-30T00:11:19.411Z
+Author: Espen Hovlandsdal <espen@hovlandsdal.com>
 Status: Draft
 Visibility: Private
 Tags:

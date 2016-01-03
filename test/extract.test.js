@@ -38,6 +38,7 @@ test('full document', function(t) {
         visibility: 'Private',
         tags: ['List', 'Random', 'Tags'],
         categories: ['Testing', 'Blogging'],
+        author: 'Espen Hovlandsdal <espen@hovlandsdal.com>',
         errors: [],
         document: fixtures.full.replace(/[\s\S]*?- - -\s+/, '')
     });
