@@ -16,7 +16,7 @@ Categories:
 
 # Full document follows here
 
-Shouldn't matter to the extractor what the content is, as long as the header is met.
+Shouldn't matter to the extractor what the content is, as long as the header is met.<!--  READ MORE  -->
 
 Here's another header, that shouldn't be picked up:
 

@@ -27,7 +27,8 @@ var listProps = [
 var matchers = {
     header: /^(\w+:[\s\S]*?)\n {0,3}(?:(?:-+ {0,2}){3,}|(?:_+ {0,2}){3,}|(?:\*+ {0,2}){3,})\s*\n/,
     headerProp: /^(.*?):\s*(.*)$/,
-    listItem: /^\s*[-*+\d]\s*(.*)$/
+    listItem: /^\s*[-*+\d]\s*(.*)$/,
+    intro: /([\s\S]*)<!--\s*read more\s*-->([\s\S]*)/i
 };
 
 function extractHeader(source) {
@@ -123,11 +124,14 @@ function extract(source) {
 function processMarkdown(source) {
     var doc = extract(source);
     var errors = validate(doc);
+    var srcDoc = source.replace(matchers.header, '');
+    var intro = srcDoc.match(matchers.intro) && srcDoc.replace(matchers.intro, '$1');
 
     doc.errors = doc.errors.concat(errors);
 
     return assign({}, doc.props, {
-        document: source.replace(matchers.header, ''),
+        document: intro ? srcDoc.replace(matchers.intro, '$1$2') : srcDoc,
+        intro: intro,
         errors: doc.errors
     });
 }

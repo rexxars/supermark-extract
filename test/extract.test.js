@@ -24,6 +24,7 @@ test('basic document', function(t) {
         author: 'Espen Hovlandsdal',
         tags: ['List', 'Ramblings'],
         errors: [],
+        intro: null,
         document: fixtures.basic.replace(/[\s\S]+-{3,}\s+/, '')
     });
     t.end();
@@ -40,8 +41,12 @@ test('full document', function(t) {
         tags: ['List', 'Random', 'Tags'],
         categories: ['Testing', 'Blogging'],
         author: 'Espen Hovlandsdal <espen@hovlandsdal.com>',
+        intro: [
+            '# Full document follows here\n\n',
+            'Shouldn\'t matter to the extractor what the content is, as long as the header is met.'
+        ].join(''),
         errors: [],
-        document: fixtures.full.replace(/[\s\S]*?- - -\s+/, '')
+        document: fixtures.full.replace(/[\s\S]*?- - -\s+/, '').replace(/<!--\s*read more\s*-->/i, '')
     });
     t.end();
 });
@@ -94,6 +99,7 @@ test('starred horizontal rules', function(t) {
         title: 'Starred horizontal rules are the worst',
         excerpt: 'But they are valid markup, so what the heck.',
         errors: [],
+        intro: null,
         document: '# Bip-bop.\n\nBoop.\n'
     });
     t.end();
@@ -245,6 +251,20 @@ test('valid categories', function(t) {
         'errors should be empty on valid categories'
     );
 
+    t.end();
+});
+
+test('intro', function(t) {
+    var doc = fixtures.intro.replace(/[\s\S]+-{3,}\s+/, '');
+    isSame(t, extract(fixtures.intro), {
+        title: 'Why Espen shouldn\'t be allowed to stay up late',
+        date: '2015-12-30T00:11:19.411Z',
+        author: 'Espen Hovlandsdal',
+        tags: ['List', 'Ramblings'],
+        errors: [],
+        intro: doc.replace(/([\s\S]*)<!--[\s\S]*/, '$1'),
+        document: doc.replace(/<!-- read more -->/i, '')
+    });
     t.end();
 });
 

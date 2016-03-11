@@ -36,6 +36,7 @@ Results in something along the lines of:
     "categories": ["Testing", "Blogging"],
     "author": "Espen Hovlandsdal <espen@hovlandsdal.com>",
     "errors": [],
+    "intro": "Raw markdown source up to the first <!-- read more -->",
     "document": "Raw markdown source of the document, without the supermark header."
 }
 ```
